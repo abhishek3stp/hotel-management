@@ -1,12 +1,15 @@
 package hotel.management;
 
-import java.awt.Color;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
 
-public class HotelManagement extends JFrame {
+;
+
+public class HotelManagement extends JFrame implements ActionListener {
 
     HotelManagement() {
+
         setBounds(100, 100, 1365, 721);
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("hotel/management/icons/first.jpeg"));
@@ -15,16 +18,18 @@ public class HotelManagement extends JFrame {
         add(l1);
 
         JLabel l2 = new JLabel("Hotel Management App");
-        l2.setBounds(20, 550, 1000, 90);
-        l2.setForeground(Color.WHITE);
-        l2.setFont(new Font("Tahoma", Font.PLAIN, 60));
+        l2.setBounds(20, 20, 1000, 90);
+        l2.setForeground(Color.BLACK);
+        l2.setFont(new Font("serif", Font.PLAIN, 70));
         l1.add(l2);
-        
+
         JButton b1 = new JButton("NEXT");
         b1.setBackground(Color.WHITE);
         b1.setForeground(Color.BLACK);
         b1.setBounds(1100, 575, 150, 50);
         l1.add(b1);
+
+        b1.addActionListener(this);
 
         setLayout(null);
         setVisible(true);
@@ -43,8 +48,14 @@ public class HotelManagement extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        new HotelManagement();
+    public void actionPerformed(ActionEvent ae) {
+        new Login().setVisible(true);
+        this.setVisible(false);
+
     }
 
+    public static void main(String[] args) {
+        HotelManagement window = new HotelManagement();
+        window.setVisible(true);
+    }
 }
