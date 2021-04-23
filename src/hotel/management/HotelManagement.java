@@ -1,11 +1,11 @@
 package hotel.management;
 
 import java.awt.*;
+//to make the desktop applications..
 import javax.swing.*;
 import java.awt.event.*;
 
 ;
-
 public class HotelManagement extends JFrame implements ActionListener {
 
     HotelManagement() {
