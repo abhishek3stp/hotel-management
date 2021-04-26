@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class Login extends JFrame implements ActionListener {
+public class Login extends JFrame{
 
 //    All the variable(global Declarations..)
     JLabel l1, l2;
@@ -14,16 +14,17 @@ public class Login extends JFrame implements ActionListener {
     JButton b1, b2;
 
 //    Constructor..
-    Login() {
-
+    Login(HotelManagement parent) {
+        
         super("Login");
-
         setLayout(null);
-
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         l1 = new JLabel("Username");
         l1.setBounds(40, 20, 100, 30);
         add(l1);
-
+        
+        Login l = this;
+        
         l2 = new JLabel("Password");
         l2.setBounds(40, 70, 100, 30);
         add(l2);
@@ -48,7 +49,39 @@ public class Login extends JFrame implements ActionListener {
         b1.setFont(new Font("serif", Font.BOLD, 15));
         b1.setBackground(Color.BLACK);
         b1.setForeground(Color.WHITE);
-        b1.addActionListener(this);
+        b1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String u = t1.getText();
+                String v = t2.getText();
+                conn c = new conn();
+
+                String q = "select * from login where username='" + u + "' and password='" + v + "'";
+                try {
+                    ResultSet rs = c.s.executeQuery(q);
+                    
+                  
+                    if(rs.next()) {
+                        int admin;
+                        String username = rs.getString("username");
+                       if( rs.getString("jobtype").equals("admin"))
+                       { 
+                            admin = 1;
+                       }
+                       else
+                       {
+                            admin = 0;
+                       }
+                         Dashboard obj = new Dashboard(l,username,admin);
+                          obj.setVisible(true);
+                        setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Invalid UserName or Password");
+                    }
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+        });
         add(b1);
 
         b2 = new JButton("Cancel");
@@ -56,42 +89,21 @@ public class Login extends JFrame implements ActionListener {
         b2.setFont(new Font("serif", Font.BOLD, 15));
         b2.setBackground(Color.BLACK);
         b2.setForeground(Color.WHITE);
-        b2.addActionListener(this);
+        b2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                parent.setVisible(true);
+            }
+        });
         add(b2);
 
         getContentPane().setBackground(Color.WHITE);
         setLayout(null);
-        setBounds(500, 300, 600, 400);
+        setBounds(500, 300, 600, 260);
         setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == b1) {
-
-            String u = t1.getText();
-            String v = t2.getText();
-            conn c = new conn();
-
-            String q = "select * from login where username='" + u + "' and password='" + v + "'";
-            try {
-                ResultSet rs = c.s.executeQuery(q);
-                if (rs.next()) 
-                {
-                    new Dashboard().setVisible(true);
-                    setVisible(false);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Invalid UserName or Password");
-                    this.setVisible(false);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (ae.getSource() == b2) {
-            System.exit(0);
-        }
-    }
-
     public static void main(String args[]) {
-        new Login();
+        //new Login();
     }
 }

@@ -1,4 +1,3 @@
-
 package hotel.management;
 
 import java.sql.*;

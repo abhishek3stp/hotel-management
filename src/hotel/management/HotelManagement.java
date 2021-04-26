@@ -5,12 +5,12 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-
 public class HotelManagement extends JFrame implements ActionListener {
 
     HotelManagement() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setBounds(100, 100, 1365, 721);
+        setBounds(100, 50, 1365, 721);
 
 //        To set the background image.. Classloader to get the imgage from our disk ..
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("hotel/management/icons/first.jpeg"));
@@ -30,6 +30,7 @@ public class HotelManagement extends JFrame implements ActionListener {
         JButton b1 = new JButton("NEXT");
         b1.setBackground(Color.WHITE);
         b1.setForeground(Color.BLACK);
+        b1.setFont(new Font("TAHOMA", Font.BOLD, 18));
         b1.setBounds(1100, 575, 150, 50);
         b1.addActionListener(this);
         l1.add(b1);
@@ -54,8 +55,9 @@ public class HotelManagement extends JFrame implements ActionListener {
         }
     }
 //For working of the button..
+
     public void actionPerformed(ActionEvent ae) {
-        new Login().setVisible(true);
+        new Login(this).setVisible(true);
         this.setVisible(false);
 
     }
