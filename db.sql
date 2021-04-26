@@ -3,13 +3,23 @@ create database hms;
 
 use hms;
 
+drop table login ;
 
-create table login(username varchar(40), password varchar(40));
+create table login(username varchar(40), password varchar(40), 
+jobtype varchar(40) );
 
 
-insert into login values('admin','12345');
+insert into login values('Akash','12345','admin');
+insert into login values('K','0808','receptionist');
+insert into login values('Ashirbad','123','admin');
+insert into login values('Raju', '456', 'receptionist');
+insert into login values('Abhishek','123456','admin');
+
+select * from login;
 
  
+create table customer(id varchar(30), number varchar(30), name varchar(30), gender varchar(30), country varchar(30), room_number varchar(30), status varchar(30), deposit varchar(30));
+
 
 create table room(room_number varchar(20), availability varchar(20), clean_status varchar(20), price varchar(20), bed_type varchar(30));
 
@@ -22,7 +32,7 @@ create table driver(name varchar(30), age varchar(10), gender varchar(20), compa
 
 create table department(department varchar(30), budget varchar(30));
 
-create table customer(id_type varchar(30), id_number varchar(10), name varchar(30), gender varchar(10), address varchar(60), room_number varchar(20), status varchar(10), deposit varchar(20));
-
-
+select * from employee;
 select * from room;
+
+-- ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
