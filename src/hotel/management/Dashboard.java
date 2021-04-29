@@ -14,7 +14,7 @@ public class Dashboard extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setForeground(Color.CYAN);
         setLayout(null);
-        JButton b_reception, b_admin,b_close,b_add_room, b_add_emp, b_add_driver;
+        JButton b_reception, b_admin, b_log_out;
         JPanel container;
         
         
@@ -28,17 +28,17 @@ public class Dashboard extends JFrame {
         add(NewLabel);
 
 //        Heading at the top..
-        JLabel AirlineManagementSystem = new JLabel("The Hotel Nalanda Welcomes You");
-        AirlineManagementSystem.setForeground(Color.BLACK);
-        AirlineManagementSystem.setFont(new Font("Tahoma", Font.PLAIN, 46));
-        AirlineManagementSystem.setBounds(400, 60, 1000, 85);
-        NewLabel.add(AirlineManagementSystem);   
+        JLabel l_welcome = new JLabel("The Hotel Nalanda Welcomes You");
+        l_welcome.setForeground(Color.BLACK);
+        l_welcome.setFont(new Font("Tahoma", Font.PLAIN, 46));
+        l_welcome.setBounds(400, 60, 1000, 85);
+        NewLabel.add(l_welcome);   
         
         
         if(admin != 1)
         {
            
-        JLabel UserWelcome = new JLabel("Welcome " + username + "  (Privialge: Receptionist)");
+        JLabel UserWelcome = new JLabel("Welcome " + username);
         UserWelcome.setForeground(Color.RED);
         UserWelcome.setFont(new Font("Tahoma", Font.PLAIN, 24));
         UserWelcome.setBounds(580, 480, 1000, 85);
@@ -46,10 +46,10 @@ public class Dashboard extends JFrame {
         }
         else{
           
-        JLabel UserWelcome = new JLabel("Welcome " + username + "  (Privilage: Admin)");
+        JLabel UserWelcome = new JLabel("Welcome " + username + " (Admin)");
         UserWelcome.setForeground(Color.RED);
         UserWelcome.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        UserWelcome.setBounds(580, 480, 1000, 85);
+        UserWelcome.setBounds(640, 480, 1000, 85);
         NewLabel.add(UserWelcome);
         }
         
@@ -78,65 +78,9 @@ public class Dashboard extends JFrame {
             }
         });
         container.add(b_reception);
-
-
-        b_add_emp = new JButton("ADD EMPLOYEE");
-        b_add_emp.setBounds(20, 120, 160, 40);
-        b_add_emp.setFont(new Font("Tahoma", Font.BOLD, 15));
-        b_add_emp.setBackground(Color.BLACK);
-        b_add_emp.setForeground(Color.WHITE);
-        b_add_emp.setVisible(false);
-        b_add_emp.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                try {
-                    new AddEmployee().setVisible(true);
-                } catch (Exception e) {
-                }
-            }
-        });
-        container.add(b_add_emp);
-        
-        b_add_room = new JButton("ADD ROOMS");
-        b_add_room.setBounds(190, 120, 140, 40);
-        b_add_room.setFont(new Font("Tahoma", Font.BOLD, 15));
-        b_add_room.setBackground(Color.BLACK);
-        b_add_room.setForeground(Color.WHITE);
-        b_add_room.setVisible(false);
-        b_add_room.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                try {
-                    new AddRoom().setVisible(true);
-                } catch (Exception e) {
-                }
-            }
-        });
-        container.add(b_add_room);
-
-        b_add_driver = new JButton("ADD DRIVERS");
-        b_add_driver.setBounds(340, 120, 150, 40);
-        b_add_driver.setFont(new Font("Tahoma", Font.BOLD, 15));
-        b_add_driver.setBackground(Color.BLACK);
-        b_add_driver.setForeground(Color.WHITE);
-        b_add_driver.setVisible(false);
-        b_add_driver.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                try {
-                    new AddDrivers().setVisible(true);
-                } catch (Exception e) {
-                }
-            }
-        });
-        container.add(b_add_driver);
-        
-        b_close = new JButton("x");
-        b_close.setBounds(500, 120, 50, 40);
-        b_close.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        b_close.setBackground(Color.BLACK);
-        b_close.setForeground(Color.WHITE);
-        b_close.setVisible(false);
         
         
-         b_admin = new JButton("ADMIN");
+        b_admin = new JButton("ADMIN");
         b_admin.setBounds(320, 120, 160, 40);
         b_admin.setFont(new Font("Tahoma", Font.BOLD, 15));
         b_admin.setBackground(Color.BLACK);
@@ -149,35 +93,14 @@ public class Dashboard extends JFrame {
         else{
             b_admin.setEnabled(true);
         }
-       
+
         b_admin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                b_reception.setVisible(false);
-                b_admin.setVisible(false);
-                b_add_emp.setVisible(true);
-                b_add_room.setVisible(true);
-                b_add_driver.setVisible(true);
-                b_close.setVisible(true);
-            }
-        });        
-        
-        
-
-        b_close.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                b_reception.setVisible(true);
-                b_admin.setVisible(true);
-                b_add_emp.setVisible(false);
-                b_add_room.setVisible(false);
-                b_add_driver.setVisible(false);
-                b_close.setVisible(false);
+                new Admin(curr,username);
             }
         });
-        
-
-
+        container.add(b_reception);      
         container.add(b_admin);
-        container.add(b_close);
 
         setSize(1950, 1090);
         setVisible(true);

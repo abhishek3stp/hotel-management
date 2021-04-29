@@ -14,10 +14,10 @@ import javax.swing.*;
 public class AddEmployee extends JFrame {
 //This is Third Frame
 
-    JTextField textField, textField_1, textField_2, textField_3, textField_4, textField_5, textField_6;
+    JTextField t_name, t_age, textField_2, t_salary, t_phone, t_aadhar, t_email;
     JComboBox c1;
 
-    public AddEmployee() {
+    public AddEmployee(Admin parent) {
 //         The Title At the top.. Background of the Image...
         getContentPane().setForeground(Color.BLACK);
         getContentPane().setBackground(Color.WHITE);
@@ -28,31 +28,37 @@ public class AddEmployee extends JFrame {
         getContentPane().setLayout(null);
 
 //            TextField for the NAME..
-        JLabel Passportno = new JLabel("NAME");
-        Passportno.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        Passportno.setBounds(60, 30, 150, 27);
-        add(Passportno);
+        JLabel l_name = new JLabel("NAME");
+        l_name.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        l_name.setBounds(60, 30, 150, 27);
+        add(l_name);
 
-        textField = new JTextField();
-        textField.setBounds(200, 30, 150, 27);
-        add(textField);
+        t_name = new JTextField();
+        t_name.setBounds(200, 30, 150, 27);
+        add(t_name);
 
-//            NEXT Button ..
-        JButton Next = new JButton("SAVE");
-        Next.setBounds(200, 420, 150, 30);
-        Next.setBackground(Color.BLACK);
-        Next.setForeground(Color.WHITE);
-        add(Next);
+//            Save Button ..
+        JButton Save = new JButton("SAVE");
+        Save.setBounds(80, 440, 150, 30);
+        Save.setBackground(Color.BLACK);
+        Save.setForeground(Color.WHITE);
+        add(Save);
+
+        JButton Back = new JButton("BACK");
+        Back.setBounds(250, 440, 150, 30);
+        Back.setBackground(Color.BLACK);
+        Back.setForeground(Color.WHITE);
+        add(Back);
 
 //            For Age..
-        JLabel Pnrno = new JLabel("AGE");
-        Pnrno.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        Pnrno.setBounds(60, 80, 150, 27);
-        add(Pnrno);
+        JLabel Age = new JLabel("AGE");
+        Age.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        Age.setBounds(60, 80, 150, 27);
+        add(Age);
 
-        textField_1 = new JTextField();
-        textField_1.setBounds(200, 80, 150, 27);
-        add(textField_1);
+        t_age = new JTextField();
+        t_age.setBounds(200, 80, 150, 27);
+        add(t_age);
 
 //            For Gender..
         JLabel Gender = new JLabel("GENDER");
@@ -60,21 +66,21 @@ public class AddEmployee extends JFrame {
         Gender.setBounds(60, 120, 150, 27);
         add(Gender);
 
-        JRadioButton NewRadioButton = new JRadioButton("MALE");
-        NewRadioButton.setBackground(Color.WHITE);
-        NewRadioButton.setBounds(200, 120, 70, 27);
-        add(NewRadioButton);
+        JRadioButton male = new JRadioButton("MALE");
+        male.setBackground(Color.WHITE);
+        male.setBounds(200, 120, 70, 27);
+        add(male);
 
         JRadioButton Female = new JRadioButton("FEMALE");
         Female.setBackground(Color.WHITE);
-        Female.setBounds(280, 120, 70, 27);
+        Female.setBounds(280, 120, 90, 27);
         add(Female);
 
 //        For JOB...    
-        JLabel Address = new JLabel("JOB");
-        Address.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        Address.setBounds(60, 170, 150, 27);
-        add(Address);
+        JLabel Job = new JLabel("JOB");
+        Job.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        Job.setBounds(60, 170, 150, 27);
+        add(Job);
 
         String course[] = {"Front Desk Clerks", "Porters", "Housekeeping", "Kitchen Staff", "Room Service", "Waiter/Waitress", "Manager", "Accountant", "Chef"};
         c1 = new JComboBox(course);
@@ -83,34 +89,34 @@ public class AddEmployee extends JFrame {
         add(c1);
 
 //For Salary..            
-        JLabel Nationality = new JLabel("SALARY");
-        Nationality.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        Nationality.setBounds(60, 220, 150, 27);
-        add(Nationality);
+        JLabel Salary = new JLabel("SALARY");
+        Salary.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        Salary.setBounds(60, 220, 150, 27);
+        add(Salary);
 
-        textField_3 = new JTextField();
-        textField_3.setBounds(200, 220, 150, 27);
-        add(textField_3);
+        t_salary = new JTextField();
+        t_salary.setBounds(200, 220, 150, 27);
+        add(t_salary);
 
 //            For phone number..
-        JLabel Name = new JLabel("PHONE");
-        Name.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        Name.setBounds(60, 270, 150, 27);
-        add(Name);
+        JLabel l_phone = new JLabel("PHONE");
+        l_phone.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        l_phone.setBounds(60, 270, 150, 27);
+        add(l_phone);
 
-        textField_4 = new JTextField();
-        textField_4.setBounds(200, 270, 150, 27);
-        add(textField_4);
+        t_phone = new JTextField();
+        t_phone.setBounds(200, 270, 150, 27);
+        add(t_phone);
 
 //	For adhar card ID..
-        JLabel Phno = new JLabel("AADHAR");
-        Phno.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        Phno.setBounds(60, 320, 150, 27);
-        add(Phno);
+        JLabel l_aadhar = new JLabel("AADHAR");
+        l_aadhar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        l_aadhar.setBounds(60, 320, 150, 27);
+        add(l_aadhar);
 
-        textField_5 = new JTextField();
-        textField_5.setBounds(200, 320, 150, 27);
-        add(textField_5);
+        t_aadhar = new JTextField();
+        t_aadhar.setBounds(200, 320, 150, 27);
+        add(t_aadhar);
 
 //           For email.. 
         JLabel email = new JLabel("EMAIL");
@@ -118,18 +124,18 @@ public class AddEmployee extends JFrame {
         email.setBounds(60, 370, 150, 27);
         add(email);
 
-        textField_6 = new JTextField();
-        textField_6.setBounds(200, 370, 150, 27);
-        add(textField_6);
+        t_email = new JTextField();
+        t_email.setBounds(200, 370, 150, 27);
+        add(t_email);
 
         setVisible(true);
 
 //            Heading at the top of the Image..
-        JLabel AddPassengers = new JLabel("ADD EMPLOYEE DETAILS");
-        AddPassengers.setForeground(Color.BLACK);
-        AddPassengers.setFont(new Font("Tahoma", Font.PLAIN, 31));
-        AddPassengers.setBounds(450, 24, 442, 35);
-        add(AddPassengers);
+        JLabel l_add_emp = new JLabel("ADD EMPLOYEE DETAILS");
+        l_add_emp.setForeground(Color.BLACK);
+        l_add_emp.setFont(new Font("Tahoma", Font.PLAIN, 31));
+        l_add_emp.setBounds(450, 24, 442, 35);
+        add(l_add_emp);
 
 //     For IMAGE..
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("hotel/management/icons/tenth.jpg"));
@@ -139,18 +145,18 @@ public class AddEmployee extends JFrame {
         image.setBounds(410, 80, 480, 410);
         add(image);
 
-        Next.addActionListener(new ActionListener() {
+        Save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                String name = textField.getText();
-                String age = textField_1.getText();
-                String salary = textField_3.getText();
-                String phone = textField_4.getText();
-                String aadhar = textField_5.getText();
-                String email = textField_6.getText();
+                String name = t_name.getText();
+                String age = t_age.getText();
+                String salary = t_salary.getText();
+                String phone = t_phone.getText();
+                String aadhar = t_aadhar.getText();
+                String email = t_email.getText();
 
                 String gender = null;
 
-                if (NewRadioButton.isSelected()) {
+                if (male.isSelected()) {
                     gender = "male";
 
                 } else if (Female.isSelected()) {
@@ -173,13 +179,16 @@ public class AddEmployee extends JFrame {
             }
         });
 
+        Back.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                        dispose();
+                        parent.setVisible(true);
+                }
+            });
+
         setSize(900, 600);
         setVisible(true);
         setLocation(400, 100);
 
-    }
-
-    public static void main(String[] args) {
-        new AddEmployee();
     }
 }

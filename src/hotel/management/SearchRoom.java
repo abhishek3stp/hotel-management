@@ -130,7 +130,7 @@ public class SearchRoom extends JFrame {
         contentPane.add(btnExit);
 
         table = new JTable();
-        table.setBounds(0, 187, 700, 300);
+        table.setBounds(0, 187, 500, 300);
         contentPane.add(table);
 
         JLabel lblCleanStatus = new JLabel("Clean Status");
