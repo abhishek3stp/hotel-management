@@ -36,6 +36,18 @@ public class SearchRoom extends JFrame {
     /**
      * Launch the application.
      */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    SearchRoom frame = new SearchRoom();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
     public void close() {
         this.dispose();
@@ -48,8 +60,8 @@ public class SearchRoom extends JFrame {
      */
     public SearchRoom(Reception parent) throws SQLException {
         //conn = Javaconnect.getDBConnection();
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(370, 200, 700, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(530, 200, 700, 500);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -109,7 +121,6 @@ public class SearchRoom extends JFrame {
                 } catch (SQLException ss) {
                     ss.printStackTrace();
                 }
-
             }
         });
         btnSearch.setBounds(200, 400, 120, 30);
@@ -130,7 +141,7 @@ public class SearchRoom extends JFrame {
         contentPane.add(btnExit);
 
         table = new JTable();
-        table.setBounds(0, 187, 500, 300);
+        table.setBounds(0, 187, 700, 300);
         contentPane.add(table);
 
         JLabel lblCleanStatus = new JLabel("Clean Status");

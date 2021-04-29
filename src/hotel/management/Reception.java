@@ -36,7 +36,7 @@ public class Reception extends JFrame {
         l1.setBounds(250, 30, 500, 470);
         add(l1);
 
-        JButton btnNewCustomerForm = new JButton("New Customer Form");
+        JButton btnNewCustomerForm = new JButton("Add Customer");
         btnNewCustomerForm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -53,6 +53,23 @@ public class Reception extends JFrame {
         btnNewCustomerForm.setForeground(Color.WHITE);
         contentPane.add(btnNewCustomerForm);
 
+        JButton btnUpdateCustomer = new JButton("Update Customer");
+        btnUpdateCustomer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    UpdateCustomer custom = new UpdateCustomer(curr_obj);
+                    custom.setVisible(true);
+                    setVisible(false);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        btnUpdateCustomer.setBounds(10, 75, 200, 30);
+        btnUpdateCustomer.setBackground(Color.BLACK);
+        btnUpdateCustomer.setForeground(Color.WHITE);
+        contentPane.add(btnUpdateCustomer);
+
         JButton btnNewButton = new JButton("Room");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -66,31 +83,11 @@ public class Reception extends JFrame {
 
             }
         });
-        btnNewButton.setBounds(10, 70, 200, 30);
+        btnNewButton.setBounds(10, 120, 200, 30);
         btnNewButton.setBackground(Color.BLACK);
         btnNewButton.setForeground(Color.WHITE);
 
         contentPane.add(btnNewButton);
-
-        JButton btnNewButton_1 = new JButton("Department");
-        btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    Department dept = new Department(curr_obj);
-                    dept.setVisible(true);
-                    setVisible(false);
-
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-
-            }
-        });
-        btnNewButton_1.setBounds(10, 110, 200, 30);
-        btnNewButton_1.setBackground(Color.BLACK);
-        btnNewButton_1.setForeground(Color.WHITE);
-
-        contentPane.add(btnNewButton_1);
 
         JButton btnNewButton_2 = new JButton("All Employee Info");
         btnNewButton_2.addActionListener(new ActionListener() {
@@ -107,7 +104,7 @@ public class Reception extends JFrame {
 
             }
         });
-        btnNewButton_2.setBounds(10, 150, 200, 30);
+        btnNewButton_2.setBounds(10, 165, 200, 30);
         btnNewButton_2.setBackground(Color.BLACK);
         btnNewButton_2.setForeground(Color.WHITE);
 
@@ -125,7 +122,7 @@ public class Reception extends JFrame {
                 }
             }
         });
-        btnNewButton_3.setBounds(10, 190, 200, 30);
+        btnNewButton_3.setBounds(10, 210, 200, 30);
         btnNewButton_3.setBackground(Color.BLACK);
         btnNewButton_3.setForeground(Color.WHITE);
 
@@ -143,7 +140,7 @@ public class Reception extends JFrame {
                 }
             }
         });
-        btnManagerInfo.setBounds(10, 230, 200, 30);
+        btnManagerInfo.setBounds(10, 255, 200, 30);
         btnManagerInfo.setBackground(Color.BLACK);
         btnManagerInfo.setForeground(Color.WHITE);
 
@@ -163,7 +160,7 @@ public class Reception extends JFrame {
                 }
             }
         });
-        btnNewButton_4.setBounds(10, 270, 200, 30);
+        btnNewButton_4.setBounds(10, 300, 200, 30);
         btnNewButton_4.setBackground(Color.BLACK);
         btnNewButton_4.setForeground(Color.WHITE);
 
@@ -181,7 +178,7 @@ public class Reception extends JFrame {
                 }
             }
         });
-        btnNewButton_5.setBounds(10, 310, 200, 30);
+        btnNewButton_5.setBounds(10, 345, 200, 30);
         btnNewButton_5.setBackground(Color.BLACK);
         btnNewButton_5.setForeground(Color.WHITE);
 
@@ -199,29 +196,11 @@ public class Reception extends JFrame {
                 }
             }
         });
-        btnNewButton_6.setBounds(10, 350, 200, 30);
+        btnNewButton_6.setBounds(10, 390, 200, 30);
         btnNewButton_6.setBackground(Color.BLACK);
         btnNewButton_6.setForeground(Color.WHITE);
 
         contentPane.add(btnNewButton_6);
-
-        JButton btnPickUpSerice = new JButton("Pick up Service");
-        btnPickUpSerice.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    PickUp pick = new PickUp(curr_obj);
-                    pick.setVisible(true);
-                    setVisible(false);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        btnPickUpSerice.setBounds(10, 390, 200, 30);
-        btnPickUpSerice.setBackground(Color.BLACK);
-        btnPickUpSerice.setForeground(Color.WHITE);
-
-        contentPane.add(btnPickUpSerice);
 
         JButton btnSearchRoom = new JButton("Search Room");
         btnSearchRoom.addActionListener(new ActionListener() {
@@ -235,31 +214,12 @@ public class Reception extends JFrame {
                 }
             }
         });
-        btnSearchRoom.setBounds(10, 430, 200, 30);
+        btnSearchRoom.setBounds(10, 435, 200, 30);
         btnSearchRoom.setBackground(Color.BLACK);
         btnSearchRoom.setForeground(Color.WHITE);
 
         contentPane.add(btnSearchRoom);
 
-        JButton btnNewButton_7 = new JButton("Log Out");
-        btnNewButton_7.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                try 
-                {   
-                    parent.dispose();
-                    l.setVisible(true);
-                      dispose();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-        btnNewButton_7.setBounds(10, 470, 200, 30);
-        btnNewButton_7.setBackground(Color.BLACK);
-        btnNewButton_7.setForeground(Color.WHITE);
-
-        contentPane.add(btnNewButton_7);
         getContentPane().setBackground(Color.WHITE);
 
         setVisible(true);
