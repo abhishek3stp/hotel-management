@@ -16,10 +16,8 @@ authorization varchar(40)
 
 
 insert into login values('Admin','12345','Admin');
-insert into login values('K','0808','Standard');
 insert into login values('Ashirbad','123','Admin');
-insert into login values('Raju', '456', 'Standard');
-insert into login values('Abhishek','123456','Admin');
+insert into login values('Abhishek','123456','Standard');
 
 select * from login;
 
