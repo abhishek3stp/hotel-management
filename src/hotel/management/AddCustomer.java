@@ -165,8 +165,6 @@ public class AddCustomer extends JFrame {
                     c.s.executeUpdate(q2);
 
                     JOptionPane.showMessageDialog(null, "Data Inserted Successfully");
-                    parent.setVisible(true);
-                    setVisible(false);
                 } catch (SQLException e1) {
                     System.out.println(e1.getMessage());
                 } catch (NumberFormatException s) {

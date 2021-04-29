@@ -119,8 +119,8 @@ public class Admin extends JFrame {
         btnNewButton_3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    CustomerInfo customer = new CustomerInfo(curr_obj);
-                    customer.setVisible(true);
+                    AddUser au = new AddUser(curr_obj);
+                    au.setVisible(true);
                     setVisible(false);
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -133,12 +133,12 @@ public class Admin extends JFrame {
 
         contentPane.add(btnNewButton_3);
 
-        JButton btnManagerInfo = new JButton("Update/Remove Application User");
+        JButton btnManagerInfo = new JButton("Update/Remove App User");
         btnManagerInfo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ManagerInfo mana = new ManagerInfo(curr_obj);
-                    mana.setVisible(true);
+                    UpdateUser uu = new UpdateUser(curr_obj);
+                    uu.setVisible(true);
                     setVisible(false);
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -154,13 +154,13 @@ public class Admin extends JFrame {
         JButton btnNewButton_4 = new JButton("Update my details");
         btnNewButton_4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CheckOut check;
                 try {
-                    check = new CheckOut(curr_obj);
-                    check.setVisible(true);
+                    UpdateMyDetail umd;
+                    umd = new UpdateMyDetail(curr_obj,username);
+                    umd.setVisible(true);
                     setVisible(false);
-                } catch (SQLException e1) {
-                    // TODO Auto-generated catch block
+                } catch (Exception e1) {
+            
                     e1.printStackTrace();
                 }
             }

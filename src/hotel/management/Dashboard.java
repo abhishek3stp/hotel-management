@@ -14,7 +14,7 @@ public class Dashboard extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setForeground(Color.CYAN);
         setLayout(null);
-        JButton b_reception, b_admin, b_log_out;
+        JButton b_reception, b_admin, b_logout;
         JPanel container;
         
         
@@ -33,42 +33,58 @@ public class Dashboard extends JFrame {
         l_welcome.setFont(new Font("Tahoma", Font.PLAIN, 46));
         l_welcome.setBounds(400, 60, 1000, 85);
         NewLabel.add(l_welcome);   
-        
-        
-        if(admin != 1)
-        {
-           
-        JLabel UserWelcome = new JLabel("Welcome " + username);
-        UserWelcome.setForeground(Color.RED);
-        UserWelcome.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        UserWelcome.setBounds(580, 480, 1000, 85);
-        NewLabel.add(UserWelcome);
-        }
-        else{
-          
-        JLabel UserWelcome = new JLabel("Welcome " + username + " (Admin)");
-        UserWelcome.setForeground(Color.RED);
-        UserWelcome.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        UserWelcome.setBounds(640, 480, 1000, 85);
-        NewLabel.add(UserWelcome);
-        }
-        
-        
-        
-       
-        
-        
+
         
         container = new JPanel();
         container.setBackground(Color.WHITE);
         container.setLayout(null);
         container.setBounds(470, 460, 580, 200);
         NewLabel.add(container);
+
+        int x1,x2;
+
+        if(admin != 1)
+        {
+           
+            JLabel UserWelcome = new JLabel("Welcome " + username);
+            UserWelcome.setForeground(Color.RED);
+            UserWelcome.setFont(new Font("Tahoma", Font.PLAIN, 24));
+            UserWelcome.setBounds(220, 10, 1000, 85);
+            container.add(UserWelcome);
+            x1= 110;
+            x2= 330;
+        }
+        else{
+          
+            JLabel UserWelcome = new JLabel("Welcome " + username + " (Admin)");
+            UserWelcome.setForeground(Color.RED);
+            UserWelcome.setFont(new Font("Tahoma", Font.PLAIN, 24));
+            UserWelcome.setBounds(150, 10, 1000, 85);
+            container.add(UserWelcome);
+            x1=40;
+            x2=400;
+        }
         
-        
+        b_logout = new JButton("LOGOUT");
+        b_logout.setBounds(x2, 120, 160, 40);
+        b_logout.setFont(new Font("Tahoma", Font.BOLD, 15));
+        b_logout.setBackground(Color.RED);
+        b_logout.setForeground(Color.WHITE);
+        b_logout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                try 
+                {   
+                    parent.setVisible(true);
+                    dispose();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        container.add(b_logout);
         
         b_reception = new JButton("RECEPTION");
-        b_reception.setBounds(100, 120, 160, 40);
+        b_reception.setBounds(x1, 120, 160, 40);
         b_reception.setFont(new Font("Tahoma", Font.BOLD, 15));
         b_reception.setBackground(Color.BLACK);
         b_reception.setForeground(Color.WHITE);
@@ -81,17 +97,14 @@ public class Dashboard extends JFrame {
         
         
         b_admin = new JButton("ADMIN");
-        b_admin.setBounds(320, 120, 160, 40);
+        b_admin.setBounds(220, 120, 160, 40);
         b_admin.setFont(new Font("Tahoma", Font.BOLD, 15));
         b_admin.setBackground(Color.BLACK);
         b_admin.setForeground(Color.WHITE);
 
-        if(admin != 1)
+        if(admin==1)
         {
-            b_admin.setEnabled(false);
-        }
-        else{
-            b_admin.setEnabled(true);
+            container.add(b_admin);
         }
 
         b_admin.addActionListener(new ActionListener() {
@@ -100,7 +113,7 @@ public class Dashboard extends JFrame {
             }
         });
         container.add(b_reception);      
-        container.add(b_admin);
+        
 
         setSize(1950, 1090);
         setVisible(true);

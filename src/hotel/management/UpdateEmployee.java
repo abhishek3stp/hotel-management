@@ -229,7 +229,6 @@ public class UpdateEmployee extends JFrame {
 
                         try {
                             c_emp.removeAll();
-                            conn c = new conn();
                             ResultSet rs = c.s.executeQuery("select * from employee");
                             while (rs.next()) {
                                 c_emp.add(rs.getString("name")+" ["+rs.getString("aadhar")+"]");

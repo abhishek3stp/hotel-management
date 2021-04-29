@@ -4,35 +4,54 @@ create database hms;
 use hms;
 
 drop table login ;
+drop table customer;
+drop table room;
+drop table employee;
 
-create table login(username varchar(40), password varchar(40), 
-jobtype varchar(40) );
+create table login(
+username varchar(40) primary key, 
+password varchar(40), 
+authorization varchar(40) 
+);
 
 
-insert into login values('Akash','12345','admin');
-insert into login values('K','0808','receptionist');
-insert into login values('Ashirbad','123','admin');
-insert into login values('Raju', '456', 'receptionist');
-insert into login values('Abhishek','123456','admin');
+insert into login values('Admin','12345','Admin');
+insert into login values('K','0808','Standard');
+insert into login values('Ashirbad','123','Admin');
+insert into login values('Raju', '456', 'Standard');
+insert into login values('Abhishek','123456','Admin');
 
 select * from login;
 
+create table room(
+room_number varchar(20) primary key, 
+availability varchar(20), 
+clean_status varchar(20), 
+price varchar(20), 
+bed_type varchar(30)
+);
  
-create table customer(id varchar(30), number varchar(30), name varchar(30), gender varchar(30), country varchar(30), room_number varchar(30), status varchar(30), deposit varchar(30));
+create table customer(
+id_type varchar(30), 
+id_number varchar(30), 
+name varchar(30), 
+gender varchar(30), 
+country varchar(30), 
+room_number varchar(20), 
+status varchar(30), 
+deposit varchar(30),
+primary key (id_type, id_number),
+foreign key (room_number) references room(room_number)
+);
 
 
-create table room(room_number varchar(20), availability varchar(20), clean_status varchar(20), price varchar(20), bed_type varchar(30));
-
-
-create table employee(name varchar(30), age varchar(10), gender varchar(30), job varchar(30), salary varchar(30), phone varchar(30), aadhar varchar(30), email varchar(40));
-
-
-create table driver(name varchar(30), age varchar(10), gender varchar(20), company varchar(30), brand varchar(30), available varchar(10), location varchar(50));
-
-
-create table department(department varchar(30), budget varchar(30));
-
-select * from employee;
-select * from room;
-
--- ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
+create table employee(
+name varchar(30), 
+age varchar(10), 
+gender varchar(30), 
+job varchar(30), 
+salary varchar(30), 
+phone varchar(30), 
+aadhar varchar(30) primary key, 
+email varchar(40)
+);

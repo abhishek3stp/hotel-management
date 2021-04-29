@@ -52,7 +52,7 @@ public class Login extends JFrame{
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String u = t1.getText();
-                String v = t2.getText();
+                String v = new String(t2.getPassword());
                 conn c = new conn();
 
                 String q = "select * from login where username='" + u + "' and password='" + v + "'";
@@ -63,7 +63,7 @@ public class Login extends JFrame{
                     if(rs.next()) {
                         int admin;
                         String username = rs.getString("username");
-                       if( rs.getString("jobtype").equals("admin"))
+                       if( rs.getString("authorization").equals("Admin"))
                        { 
                             admin = 1;
                        }
