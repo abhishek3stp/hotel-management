@@ -79,10 +79,10 @@ public class UpdateCustomer extends JFrame {
         add(t_name);
 
 //            For Age..
-        JLabel Country = new JLabel("Address");
-        Country.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        Country.setBounds(60, 430, 150, 27);
-        add(Country);
+        JLabel Address = new JLabel("Address");
+        Address.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        Address.setBounds(60, 430, 150, 27);
+        add(Address);
 
         t_address = new JTextField();
         t_address.setBounds(200, 430, 240, 27);
@@ -162,7 +162,7 @@ public class UpdateCustomer extends JFrame {
                     ResultSet rs = c.s.executeQuery(str);
                     while (rs.next()) {
                         t_name.setText(rs.getString("name"));
-                        t_address.setText(rs.getString("country"));
+                        t_address.setText(rs.getString("address"));
                         t_room_no.setText(rs.getString("room_number"));
                         t_checkin.setText(rs.getString("status"));
                         t_deposit.setText(rs.getString("deposit"));
@@ -229,7 +229,7 @@ public class UpdateCustomer extends JFrame {
                 String id_type = S.substring(S.indexOf("[") + 1, S.indexOf(":"));
                 String name = t_name.getText();
                 String room_number = t_room_no.getText();
-                String country = t_address.getText();
+                String address = t_address.getText();
                 String checkin = t_checkin.getText();
                 String deposit = t_deposit.getText();
 
@@ -260,7 +260,7 @@ public class UpdateCustomer extends JFrame {
                         
                         String str1 = "update room set availability='Available' where room_number = (select room_number from customer where id_number='"+
                                         id_number+"' and id_type='"+id_type+"')";
-                        String str2 = "update customer set name = '" + name + "', room_number= '" + room_number + "', country= '" + country + "', status= '" + checkin + "',"
+                        String str2 = "update customer set name = '" + name + "', room_number= '" + room_number + "', address= '" + address + "', status= '" + checkin + "',"
                                 + " gender= '" + gender + "', deposit= '" + deposit + "' where id_number= '" + id_number + "' and id_type= '"+id_type+"'";
                         String str3 = "update room set availability='Occupied' where room_number ='"+room_number+"'";
                         c.s.executeUpdate(str1);

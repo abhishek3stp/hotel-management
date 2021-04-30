@@ -36,6 +36,7 @@ public class CustomerInfo extends JFrame {
     private JLabel lRoom;
     private JLabel lStatus;
     private JLabel lNewLabel_1;
+    JTextField t_search;
 
     /**
      * Launch the application.
@@ -53,11 +54,12 @@ public class CustomerInfo extends JFrame {
     public CustomerInfo(Reception parent) throws SQLException {
         //conn = Javaconnect.getDBConnection();
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(350, 180, 900, 600);
+        setBounds(300, 80, 1000, 700);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        setTitle("Search Customer Details");
 
         JButton btnExit = new JButton("Back");
         btnExit.addActionListener(new ActionListener() {
@@ -66,18 +68,19 @@ public class CustomerInfo extends JFrame {
                 dispose();
             }
         });
-        btnExit.setBounds(450, 510, 120, 30);
+        btnExit.setBounds(450, 620, 120, 30);
         btnExit.setBackground(Color.BLACK);
         btnExit.setForeground(Color.WHITE);
         contentPane.add(btnExit);
 
-        JButton btnLoadData = new JButton("Load Data");
+        JButton btnLoadData = new JButton("Load All");
         btnLoadData.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 try {
                     conn c = new conn();
 
-                    String displayCustomersql = "select * from Customer";
+                    String displayCustomersql = "select c.id_type,c.id_number,c.name,c.gender,c.address,c.room_number,c.status,"+
+                                                "c.deposit,r.price-c.deposit as pending from Customer c, Room r where c.room_number=r.room_number";
                     ResultSet rs = c.s.executeQuery(displayCustomersql);
                     table.setModel(DbUtils.resultSetToTableModel(rs));
                 } catch (Exception e) {
@@ -86,49 +89,80 @@ public class CustomerInfo extends JFrame {
             }
 
         });
-        btnLoadData.setBounds(300, 510, 120, 30);
+        btnLoadData.setBounds(300, 620, 120, 30);
         btnLoadData.setBackground(Color.BLACK);
         btnLoadData.setForeground(Color.WHITE);
         contentPane.add(btnLoadData);
 
+        t_search = new JTextField();
+        t_search.setBounds(200, 10, 400, 27);
+        add(t_search);
+
+        JButton b_search = new JButton("Search");
+        b_search.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    conn c = new conn();
+
+                    String displayCustomersql = "select c.id_type,c.id_number,c.name,c.gender,c.address,c.room_number,c.status,"+
+                                                "c.deposit,r.price-c.deposit as pending from Customer c, Room r where c.room_number=r.room_number "
+                                                +"and (c.name like '%"+t_search.getText()+"%' or c.id_number like '%"
+                                                +t_search.getText()+"%' or c.id_type like '%"+t_search.getText()+"%' )";
+                    ResultSet rs = c.s.executeQuery(displayCustomersql);
+                    table.setModel(DbUtils.resultSetToTableModel(rs));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+        b_search.setBounds(610, 10, 120, 27);
+        b_search.setBackground(Color.BLACK);
+        b_search.setForeground(Color.WHITE);
+        contentPane.add(b_search);
+
         l_id = new JLabel("________________ID_______________");
-        l_id.setBounds(10, 10, 300, 14);
+        l_id.setBounds(10, 65, 300, 14);
         contentPane.add(l_id);
 
         l_id_type = new JLabel("TYPE");
-        l_id_type.setBounds(31, 26, 46, 14);
+        l_id_type.setBounds(31, 80, 46, 14);
         contentPane.add(l_id_type);
 
         l_id_number = new JLabel("Number");
-        l_id_number.setBounds(150, 26, 46, 14);
+        l_id_number.setBounds(150, 80, 46, 14);
         contentPane.add(l_id_number);
 
         lNewLabel = new JLabel("Name");
-        lNewLabel.setBounds(270, 26, 65, 14);
+        lNewLabel.setBounds(270, 80, 65, 14);
         contentPane.add(lNewLabel);
 
         lGender = new JLabel("Gender");
-        lGender.setBounds(360, 26, 46, 14);
+        lGender.setBounds(360, 80, 46, 14);
         contentPane.add(lGender);
 
         table = new JTable();
-        table.setBounds(0, 56, 900, 450);
+        table.setBounds(0, 100, 1000, 480);
         contentPane.add(table);
 
-        lCountry = new JLabel("Country");
-        lCountry.setBounds(480, 26, 46, 14);
+        lCountry = new JLabel("Address");
+        lCountry.setBounds(480, 80, 46, 14);
         contentPane.add(lCountry);
 
         lRoom = new JLabel("Room");
-        lRoom.setBounds(600, 26, 46, 14);
+        lRoom.setBounds(600, 80, 46, 14);
         contentPane.add(lRoom);
 
         lStatus = new JLabel("Check-in Status");
-        lStatus.setBounds(680, 26, 100, 14);
+        lStatus.setBounds(680, 80, 100, 14);
         contentPane.add(lStatus);
 
         lNewLabel_1 = new JLabel("Deposit");
-        lNewLabel_1.setBounds(800, 26, 100, 14);
+        lNewLabel_1.setBounds(800, 80, 100, 14);
+        contentPane.add(lNewLabel_1);
+
+        lNewLabel_1 = new JLabel("Pending");
+        lNewLabel_1.setBounds(900, 80, 100, 14);
         contentPane.add(lNewLabel_1);
 
         getContentPane().setBackground(Color.WHITE);

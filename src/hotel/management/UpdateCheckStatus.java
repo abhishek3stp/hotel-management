@@ -157,11 +157,10 @@ public class UpdateCheckStatus extends JFrame {
                     String s0 = c_id_type.getSelectedItem();
                     String s1 = c_id_number.getSelectedItem();
                     String s2 = t_room_no.getText(); //room_number;    
-                    String s3 = t_name.getText(); //name    
                     String s4 = t_status.getText(); //status;    
                     String s5 = t_deposit.getText(); //deposit    
 
-                    c.s.executeUpdate("update customer set room_number = '" + s2 + "', name = '" + s3 + "', status = '" + s4 + "', deposit = '" + s5 + "' where id_number = '" + s1 + "' and id_type= '" + s0 + "'");
+                    c.s.executeUpdate("update customer set room_number = '" + s2 + "', status = '" + s4 + "', deposit = '" + s5 + "' where id_number = '" + s1 + "' and id_type= '" + s0 + "'");
 
                     JOptionPane.showMessageDialog(null, "Data Updated Successfully");
                 } catch (Exception ee) {

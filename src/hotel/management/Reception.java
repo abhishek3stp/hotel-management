@@ -28,6 +28,7 @@ public class Reception extends JFrame {
         contentPane = new JPanel();
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        setTitle("Reception");
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("hotel/management/icons/reception.jpg"));
         Image i3 = i1.getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT);
@@ -110,7 +111,7 @@ public class Reception extends JFrame {
 
         contentPane.add(btnNewButton_2);
 
-        JButton btnNewButton_3 = new JButton("Customer Info");
+        JButton btnNewButton_3 = new JButton("Search Customer Details");
         btnNewButton_3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
