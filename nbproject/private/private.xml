@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ashirbad/Documents/DBMS_PROJECT/New%20folder%20(2)/hotel-management/src/hotel/management/CustomerInfo.java</file>
-            <file>file:/C:/Users/Ashirbad/Documents/DBMS_PROJECT/New%20folder%20(2)/hotel-management/src/hotel/management/Dashboard.java</file>
-            <file>file:/C:/Users/Ashirbad/Documents/DBMS_PROJECT/New%20folder%20(2)/hotel-management/src/hotel/management/ManagerInfo.java</file>
-            <file>file:/C:/Users/Ashirbad/Documents/DBMS_PROJECT/New%20folder%20(2)/hotel-management/src/hotel/management/AddCustomer.java</file>
-            <file>file:/C:/Users/Ashirbad/Documents/DBMS_PROJECT/New%20folder%20(2)/hotel-management/src/hotel/management/UpdateEmployee.java</file>
-            <file>file:/C:/Users/Ashirbad/Documents/DBMS_PROJECT/New%20folder%20(2)/hotel-management/src/hotel/management/SearchRoom.java</file>
-            <file>file:/C:/Users/Ashirbad/Documents/DBMS_PROJECT/New%20folder%20(2)/hotel-management/src/hotel/management/EmployeeInfo.java</file>
-            <file>file:/C:/Users/Ashirbad/Documents/DBMS_PROJECT/New%20folder%20(2)/hotel-management/src/hotel/management/UpdateCheckStatus.java</file>
-            <file>file:/C:/Users/Ashirbad/Documents/DBMS_PROJECT/New%20folder%20(2)/hotel-management/src/hotel/management/UpdateCustomer.java</file>
+            <file>file:/D:/Project/DBMS/hotel-management/src/hotel/management/HotelManagement.java</file>
+            <file>file:/D:/Project/DBMS/hotel-management/src/hotel/management/CheckOut.java</file>
+            <file>file:/D:/Project/DBMS/hotel-management/src/hotel/management/conn.java</file>
+            <file>file:/D:/Project/DBMS/hotel-management/src/hotel/management/UpdateCustomer.java</file>
         </group>
     </open-files>
 </project-private>

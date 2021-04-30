@@ -151,11 +151,11 @@ public class UpdateCustomer extends JFrame {
         l_add_emp.setBounds(260, 10, 442, 35);
         add(l_add_emp);
 
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("hotel/management/icons/tenth.jpg"));
-        Image i3 = i1.getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT);
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("hotel/management/icons/checkin.jpg"));
+        Image i3 = i1.getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT);
         ImageIcon i2 = new ImageIcon(i3);
         JLabel image = new JLabel(i2);
-        image.setBounds(460, 80, 480, 410);
+        image.setBounds(460, 120, 400, 400);
         add(image);
 
         Fetch.addActionListener(new ActionListener() {
