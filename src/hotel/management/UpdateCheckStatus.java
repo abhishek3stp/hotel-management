@@ -25,7 +25,7 @@ public class UpdateCheckStatus extends JFrame {
     private JPanel contentPane;
     private JTextField t_room_no;
     private JTextField t_name;
-    private JTextField t_status;
+    private JTextField t_date,t_day;
     private JTextField t_deposit;
     private JTextField t_pending;
 
@@ -121,30 +121,39 @@ public class UpdateCheckStatus extends JFrame {
         contentPane.add(t_name);
         t_name.setColumns(10);
 
-        JLabel l_status = new JLabel("Checked-in :");
-        l_status.setBounds(25, 240, 107, 14);
-        contentPane.add(l_status);
+        JLabel l_date = new JLabel("Check-in date :");
+        l_date.setBounds(25, 240, 107, 14);
+        contentPane.add(l_date);
 
-        t_status = new JTextField();
-        t_status.setBounds(248, 240, 202, 20);
-        contentPane.add(t_status);
-        t_status.setColumns(10);
+        t_date = new JTextField();
+        t_date.setBounds(248, 240, 202, 20);
+        contentPane.add(t_date);
+        t_date.setColumns(10);
+
+        JLabel l_day = new JLabel("Check-In Days :");
+        l_day.setBounds(25, 280, 107, 14);
+        contentPane.add(l_day);
+
+        t_day = new JTextField();
+        t_day.setBounds(248, 277, 202, 20);
+        contentPane.add(t_day);
+        t_day.setColumns(10);
 
         JLabel l_deposit = new JLabel("Amount Paid (Rs) : ");
-        l_deposit.setBounds(25, 280, 107, 14);
+        l_deposit.setBounds(25, 320, 107, 14);
         contentPane.add(l_deposit);
 
         t_deposit = new JTextField();
-        t_deposit.setBounds(248, 277, 202, 20);
+        t_deposit.setBounds(248, 317, 202, 20);
         contentPane.add(t_deposit);
         t_deposit.setColumns(10);
 
         JLabel l_pending = new JLabel("Pending Amount (Rs) : ");
-        l_pending.setBounds(25, 320, 150, 14);
+        l_pending.setBounds(25, 360, 150, 14);
         contentPane.add(l_pending);
 
         t_pending = new JTextField();
-        t_pending.setBounds(248, 317, 202, 20);
+        t_pending.setBounds(248, 357, 202, 20);
         contentPane.add(t_pending);
         t_pending.setColumns(10);
 
@@ -157,10 +166,11 @@ public class UpdateCheckStatus extends JFrame {
                     String s0 = c_id_type.getSelectedItem();
                     String s1 = c_id_number.getSelectedItem();
                     String s2 = t_room_no.getText(); //room_number;    
-                    String s4 = t_status.getText(); //status;    
+                    String s4 = t_day.getText();
+                    String s6 = t_date.getText();    
                     String s5 = t_deposit.getText(); //deposit    
 
-                    c.s.executeUpdate("update customer set room_number = '" + s2 + "', status = '" + s4 + "', deposit = '" + s5 + "' where id_number = '" + s1 + "' and id_type= '" + s0 + "'");
+                    c.s.executeUpdate("update customer set room_number = '" + s2 + "', no_of_days = '" + s4 + "', deposit = '" + s5 + "', check_in_date ='"+s6+"' where id_number = '" + s1 + "' and id_type= '" + s0 + "'");
 
                     JOptionPane.showMessageDialog(null, "Data Updated Successfully");
                 } catch (Exception ee) {
@@ -169,7 +179,7 @@ public class UpdateCheckStatus extends JFrame {
 
             }
         });
-        btnUpdate.setBounds(168, 380, 89, 23);
+        btnUpdate.setBounds(168, 400, 89, 23);
         btnUpdate.setBackground(Color.BLACK);
         btnUpdate.setForeground(Color.WHITE);
         contentPane.add(btnUpdate);
@@ -181,7 +191,7 @@ public class UpdateCheckStatus extends JFrame {
                 dispose();
             }
         });
-        btnExit.setBounds(281, 380, 89, 23);
+        btnExit.setBounds(281, 400, 89, 23);
         btnExit.setBackground(Color.BLACK);
         btnExit.setForeground(Color.WHITE);
         contentPane.add(btnExit);
@@ -189,6 +199,7 @@ public class UpdateCheckStatus extends JFrame {
         JButton btnAdd = new JButton("Check");
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String deposit="0",days="0";
                 try {
                     String s0 = c_id_type.getSelectedItem();
                     String s1 = c_id_number.getSelectedItem();
@@ -198,22 +209,24 @@ public class UpdateCheckStatus extends JFrame {
                     while (rs1.next()) {
                         t_room_no.setText(rs1.getString("room_number"));
                         t_name.setText(rs1.getString("name"));
-                        t_status.setText(rs1.getString("status"));
-                        t_deposit.setText(rs1.getString("deposit"));
+                        t_date.setText(rs1.getString("check_in_date"));
+                        deposit=rs1.getString("deposit");
+                        t_deposit.setText(deposit);
+                        days=rs1.getString("no_of_days");
+                        t_day.setText(days);
                     }
                 } catch (Exception ee) {
                     System.out.println("error");
                 }
 
                 try {
-                    String total = "";
+                    String total = "0";
                     conn c = new conn();
-                    ResultSet rs2 = c.s.executeQuery("select * from room where room_number = " + t_room_no.getText());
+                    ResultSet rs2 = c.s.executeQuery("select * from room where room_number = '" + t_room_no.getText()+"'");
                     while (rs2.next()) {
                         total = rs2.getString("price");
                     }
-                    String paid = t_deposit.getText();
-                    int pending = Integer.parseInt(total) - Integer.parseInt(paid);
+                    int pending = (Integer.parseInt(total)*Integer.parseInt(days)) - Integer.parseInt(deposit);
 
                     t_pending.setText(Integer.toString(pending));
 
@@ -222,7 +235,7 @@ public class UpdateCheckStatus extends JFrame {
                 }
             }
         });
-        btnAdd.setBounds(56, 380, 89, 23);
+        btnAdd.setBounds(56, 400, 89, 23);
         btnAdd.setBackground(Color.BLACK);
         btnAdd.setForeground(Color.WHITE);
         contentPane.add(btnAdd);

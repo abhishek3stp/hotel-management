@@ -14,7 +14,7 @@ import javax.swing.*;
 public class UpdateCustomer extends JFrame {
 //This is Third Frame
 
-    JTextField t_name, t_gender, t_address, t_room_no, t_checkin, t_deposit;
+    JTextField t_name, t_gender, t_address, t_room_no, t_date, t_deposit, t_days;
 
     public UpdateCustomer(Reception parent) {
 //      The Title At the top.. Background of the Image...
@@ -23,7 +23,7 @@ public class UpdateCustomer extends JFrame {
         setTitle("Update/Remove Customer");
 
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        setSize(778, 486);
+        setSize(778, 600);
         getContentPane().setLayout(null);
 
 //      TextField for the NAME..
@@ -52,19 +52,19 @@ public class UpdateCustomer extends JFrame {
         add(Fetch);
 
         JButton Delete = new JButton("DELETE");
-        Delete.setBounds(80, 490, 150, 30);
+        Delete.setBounds(80, 550, 150, 30);
         Delete.setBackground(Color.RED);
         Delete.setForeground(Color.WHITE);
         add(Delete);
 
         JButton Update = new JButton("UPDATE");
-        Update.setBounds(250, 490, 150, 30);
+        Update.setBounds(250, 550, 150, 30);
         Update.setBackground(Color.BLACK);
         Update.setForeground(Color.WHITE);
         add(Update);
 
         JButton Back = new JButton("BACK");
-        Back.setBounds(420, 490, 150, 30);
+        Back.setBounds(420, 550, 150, 30);
         Back.setBackground(Color.BLACK);
         Back.setForeground(Color.WHITE);
         add(Back);
@@ -81,11 +81,11 @@ public class UpdateCustomer extends JFrame {
 //            For Age..
         JLabel Address = new JLabel("Address");
         Address.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        Address.setBounds(60, 430, 150, 27);
+        Address.setBounds(60, 480, 150, 27);
         add(Address);
 
         t_address = new JTextField();
-        t_address.setBounds(200, 430, 240, 27);
+        t_address.setBounds(200, 480, 240, 27);
         add(t_address);
 
 //            For Gender..
@@ -116,22 +116,31 @@ public class UpdateCustomer extends JFrame {
         t_room_no.setBounds(200, 250, 240, 27);
         add(t_room_no);
 
-        JLabel CheckIn = new JLabel("Check In");
+        JLabel CheckIn = new JLabel("Check-In Date");
         CheckIn.setFont(new Font("Tahoma", Font.PLAIN, 17));
         CheckIn.setBounds(60, 310, 150, 27);
         add(CheckIn);
 
-        t_checkin = new JTextField();
-        t_checkin.setBounds(200, 310, 240, 27);
-        add(t_checkin);
+        t_date = new JTextField();
+        t_date.setBounds(200, 310, 240, 27);
+        add(t_date);
+
+        JLabel CheckInDays = new JLabel("Check-In Days");
+        CheckInDays.setFont(new Font("Tahoma", Font.PLAIN, 17));
+        CheckInDays.setBounds(60, 370, 150, 27);
+        add(CheckInDays);
+
+        t_days = new JTextField();
+        t_days.setBounds(200, 370, 240, 27);
+        add(t_days);
 
         JLabel Deposit = new JLabel("Deposit");
         Deposit.setFont(new Font("Tahoma", Font.PLAIN, 17));
-        Deposit.setBounds(60, 370, 150, 27);
+        Deposit.setBounds(60, 430, 150, 27);
         add(Deposit);
 
         t_deposit = new JTextField();
-        t_deposit.setBounds(200, 370, 240, 27);
+        t_deposit.setBounds(200, 430, 240, 27);
         add(t_deposit);
 
         setVisible(true);
@@ -164,7 +173,8 @@ public class UpdateCustomer extends JFrame {
                         t_name.setText(rs.getString("name"));
                         t_address.setText(rs.getString("address"));
                         t_room_no.setText(rs.getString("room_number"));
-                        t_checkin.setText(rs.getString("status"));
+                        t_date.setText(rs.getString("check_in_date"));
+                        t_days.setText(rs.getString("no_of_days"));
                         t_deposit.setText(rs.getString("deposit"));
                         String gender = rs.getString("gender");
                         if (gender.equals("male")) {
@@ -230,7 +240,8 @@ public class UpdateCustomer extends JFrame {
                 String name = t_name.getText();
                 String room_number = t_room_no.getText();
                 String address = t_address.getText();
-                String checkin = t_checkin.getText();
+                String check_in_date = t_date.getText();
+                String check_in_days = t_days.getText();
                 String deposit = t_deposit.getText();
 
                 String gender = null;
@@ -245,14 +256,14 @@ public class UpdateCustomer extends JFrame {
                     conn c = new conn();
                     c.c.setAutoCommit(false);
 
-                    String str = "select availability from room where room_number='"+room_number+
-                                "' and room_number != (select room_number from customer where id_number='"+
-                                id_number+"' and id_type='"+id_type+"')";
+                    String str = "select count(*) as count from Customer c, Room r where c.room_number=r.room_number and r.room_number='"+room_number+"' and "
+                    +"(date_add(c.check_in_date,INTERVAL c.no_of_days day)>='"+check_in_date+"' and c.check_in_date <= date_add('"+check_in_date+"',INTERVAL "+check_in_days+" day) )";
+                    
                     ResultSet rs = c.s.executeQuery(str);
                     while(rs.next()){
-                        String aval = rs.getString("availability");
-                        if(aval.equals("Occupied")){
-                            throw new Exception("Room "+room_number+" is occupied");
+                        int count= Integer.parseInt(rs.getString("count"));
+                        if(count>0){
+                            throw new Exception("Room "+room_number+" will remain occupied for the given days");
                         }
                     }
 
@@ -260,8 +271,8 @@ public class UpdateCustomer extends JFrame {
                         
                         String str1 = "update room set availability='Available' where room_number = (select room_number from customer where id_number='"+
                                         id_number+"' and id_type='"+id_type+"')";
-                        String str2 = "update customer set name = '" + name + "', room_number= '" + room_number + "', address= '" + address + "', status= '" + checkin + "',"
-                                + " gender= '" + gender + "', deposit= '" + deposit + "' where id_number= '" + id_number + "' and id_type= '"+id_type+"'";
+                        String str2 = "update customer set name = '" + name + "', room_number= '" + room_number + "', address= '" + address + "', check_in_date= '" + check_in_date + "',"
+                                + " gender= '" + gender + "', no_of_days='"+check_in_days+"', deposit= '" + deposit + "' where id_number= '" + id_number + "' and id_type= '"+id_type+"'";
                         String str3 = "update room set availability='Occupied' where room_number ='"+room_number+"'";
                         c.s.executeUpdate(str1);
                         c.s.executeUpdate(str2);
@@ -275,6 +286,7 @@ public class UpdateCustomer extends JFrame {
                             JOptionPane.showMessageDialog(null, "Room does not exist!");
                         }
                         else{
+                            e.printStackTrace();
                             JOptionPane.showMessageDialog(null, e.getErrorCode()+" "+e.getMessage());
                         }
                         c.c.rollback();
@@ -290,6 +302,7 @@ public class UpdateCustomer extends JFrame {
                     c.c.setAutoCommit(true);
                 }
                 catch(Exception e2){
+                    e2.printStackTrace();
                     JOptionPane.showMessageDialog(null, e2.getMessage());
                 }
             }
@@ -302,7 +315,7 @@ public class UpdateCustomer extends JFrame {
             }
         });
 
-        setSize(900, 600);
+        setSize(900, 660);
         setVisible(true);
         setLocation(400, 100);
 

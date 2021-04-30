@@ -35,7 +35,7 @@ public class CustomerInfo extends JFrame {
     private JLabel lCountry;
     private JLabel lRoom;
     private JLabel lStatus;
-    private JLabel lNewLabel_1;
+    private JLabel lDeposit,lPending,lDate;
     JTextField t_search;
 
     /**
@@ -54,7 +54,7 @@ public class CustomerInfo extends JFrame {
     public CustomerInfo(Reception parent) throws SQLException {
         //conn = Javaconnect.getDBConnection();
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(300, 80, 1000, 700);
+        setBounds(250, 80, 1120, 700);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -79,8 +79,8 @@ public class CustomerInfo extends JFrame {
                 try {
                     conn c = new conn();
 
-                    String displayCustomersql = "select c.id_type,c.id_number,c.name,c.gender,c.address,c.room_number,c.status,"+
-                                                "c.deposit,r.price-c.deposit as pending from Customer c, Room r where c.room_number=r.room_number";
+                    String displayCustomersql = "select c.id_type,c.id_number,c.name,c.gender,c.address,c.room_number,c.deposit,"+
+                                                "(r.price*c.no_of_days)-c.deposit as pending,c.check_in_date,date_add(check_in_date,INTERVAL no_of_days day) as check_out_date from Customer c, Room r where c.room_number=r.room_number";
                     ResultSet rs = c.s.executeQuery(displayCustomersql);
                     table.setModel(DbUtils.resultSetToTableModel(rs));
                 } catch (Exception e) {
@@ -104,8 +104,9 @@ public class CustomerInfo extends JFrame {
                 try {
                     conn c = new conn();
 
-                    String displayCustomersql = "select c.id_type,c.id_number,c.name,c.gender,c.address,c.room_number,c.status,"+
-                                                "c.deposit,r.price-c.deposit as pending from Customer c, Room r where c.room_number=r.room_number "
+                    String displayCustomersql = "select c.id_type,c.id_number,c.name,c.gender,c.address,c.room_number,c.deposit,"+
+                                                "(r.price*c.no_of_days)-c.deposit as pending,c.check_in_date,date_add(check_in_date,INTERVAL no_of_days day) as check_out_date"
+                                                +" from Customer c, Room r where c.room_number=r.room_number "
                                                 +"and (c.name like '%"+t_search.getText()+"%' or c.id_number like '%"
                                                 +t_search.getText()+"%' or c.id_type like '%"+t_search.getText()+"%' )";
                     ResultSet rs = c.s.executeQuery(displayCustomersql);
@@ -142,7 +143,7 @@ public class CustomerInfo extends JFrame {
         contentPane.add(lGender);
 
         table = new JTable();
-        table.setBounds(0, 100, 1000, 480);
+        table.setBounds(0, 100, 1115, 480);
         contentPane.add(table);
 
         lCountry = new JLabel("Address");
@@ -153,17 +154,23 @@ public class CustomerInfo extends JFrame {
         lRoom.setBounds(600, 80, 46, 14);
         contentPane.add(lRoom);
 
-        lStatus = new JLabel("Check-in Status");
-        lStatus.setBounds(680, 80, 100, 14);
+        
+
+        lDeposit = new JLabel("Deposit");
+        lDeposit.setBounds(680, 80, 100, 14);
+        contentPane.add(lDeposit);
+
+        lPending = new JLabel("Pending");
+        lPending.setBounds(800, 80, 100, 14);
+        contentPane.add(lPending);
+
+        lDate = new JLabel("Check-in date");
+        lDate.setBounds(900, 80, 100, 14);
+        contentPane.add(lDate);
+
+        lStatus = new JLabel("Check-out date");
+        lStatus.setBounds(1005, 80, 100, 14);
         contentPane.add(lStatus);
-
-        lNewLabel_1 = new JLabel("Deposit");
-        lNewLabel_1.setBounds(800, 80, 100, 14);
-        contentPane.add(lNewLabel_1);
-
-        lNewLabel_1 = new JLabel("Pending");
-        lNewLabel_1.setBounds(900, 80, 100, 14);
-        contentPane.add(lNewLabel_1);
 
         getContentPane().setBackground(Color.WHITE);
     }

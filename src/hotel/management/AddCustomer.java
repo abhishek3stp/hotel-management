@@ -25,7 +25,7 @@ public class AddCustomer extends JFrame {
     Connection conn = null;
     PreparedStatement pst = null;
     private JPanel contentPane;
-    private JTextField t_id_number, t_name, t_address, t_check_in_stat, t_deposite;
+    private JTextField t_id_number, t_name, t_address, t_check_in_days,t_check_in_date, t_deposite;
 
     private JComboBox c_id_type;
     JRadioButton r_male, r_female;
@@ -108,7 +108,7 @@ public class AddCustomer extends JFrame {
         c1 = new Choice();
         try {
             conn c = new conn();
-            ResultSet rs = c.s.executeQuery("select * from room where availability='Available'");
+            ResultSet rs = c.s.executeQuery("select * from room");
             while (rs.next()) {
                 c1.add(rs.getString("room_number"));
             }
@@ -117,21 +117,30 @@ public class AddCustomer extends JFrame {
         c1.setBounds(271, 274, 150, 20);
         contentPane.add(c1);
 
-        JLabel l_check_in_stat = new JLabel("Checked-In :");
-        l_check_in_stat.setBounds(35, 316, 200, 14);
-        contentPane.add(l_check_in_stat);
+        JLabel l_check_in_date = new JLabel("start date [YYYY-MM-DD] :");
+        l_check_in_date.setBounds(35, 316, 200, 14);
+        contentPane.add(l_check_in_date);
 
-        t_check_in_stat = new JTextField();
-        t_check_in_stat.setBounds(271, 316, 150, 20);
-        contentPane.add(t_check_in_stat);
-        t_check_in_stat.setColumns(10);
+        t_check_in_date = new JTextField();
+        t_check_in_date.setBounds(271, 316, 150, 20);
+        contentPane.add(t_check_in_date);
+        t_check_in_date.setColumns(10);
+
+        JLabel l_check_in_days = new JLabel("Check-In Days :");
+        l_check_in_days.setBounds(35, 359, 200, 14);
+        contentPane.add(l_check_in_days);
+
+        t_check_in_days = new JTextField();
+        t_check_in_days.setBounds(271, 359, 150, 20);
+        contentPane.add(t_check_in_days);
+        t_check_in_days.setColumns(10);
 
         JLabel l_deposite = new JLabel("Deposit :");
-        l_deposite.setBounds(35, 359, 200, 14);
+        l_deposite.setBounds(35, 400, 200, 14);
         contentPane.add(l_deposite);
 
         t_deposite = new JTextField();
-        t_deposite.setBounds(271, 359, 150, 20);
+        t_deposite.setBounds(271, 400, 150, 20);
         contentPane.add(t_deposite);
         t_deposite.setColumns(10);
 
@@ -151,19 +160,33 @@ public class AddCustomer extends JFrame {
                     }
 
                     String s_room = c1.getSelectedItem();
+                    String s_id_type = (String) c_id_type.getSelectedItem();
+                    String s_id_number = t_id_number.getText();
+                    String s_name = t_name.getText();
+                    String s_gender = radio;
+                    String s_address = t_address.getText();
+                    String s_date = t_check_in_date.getText();
+                    String s_days = t_check_in_days.getText();
+                    String s_deposite = t_deposite.getText();
+                    
+                    
+
+                    String str = "select count(*) as count from Customer c, Room r where c.room_number=r.room_number and r.room_number='"+s_room+"' and "
+                    +"(date_add(c.check_in_date,INTERVAL c.no_of_days day)>='"+s_date+"' and c.check_in_date <= date_add('"+s_date+"',INTERVAL "+s_days+" day) )";
+                    
+                    ResultSet rs = c.s.executeQuery(str);
+                    while(rs.next()){
+                        int count= Integer.parseInt(rs.getString("count"));
+                        if(count>0){
+                            throw new Exception("Room "+s_room+" will remain occupied for the given days");
+                        }
+                    }
 
                     try {
 
-                        String s_id_type = (String) c_id_type.getSelectedItem();
-                        String s_id_number = t_id_number.getText();
-                        String s_name = t_name.getText();
-                        String s_gender = radio;
-                        String s_address = t_address.getText();
-                        String s_check_in_stat = t_check_in_stat.getText();
-                        String s_deposite = t_deposite.getText();
-
-                        String q1 = "insert into customer values('" + s_id_type + "','" + s_id_number + "','" + s_name + "','" + s_gender + "','" + s_address + "','" + s_room + "','" + s_check_in_stat + "','" + s_deposite + "')";
-                        String q2 = "update room set availability = 'Occupied' where room_number = " + s_room;
+                        String q1 = "insert into customer values('" + s_id_type + "','" + s_id_number + "','" + s_name + "','" + s_gender + "','" + s_address + "','" + s_room + "','" + s_days + "','" + s_deposite +"','" + s_date + "')";
+                        String q2 = "update room set availability = 'Occupied' where room_number = '" + s_room+"'";
+                        System.out.println(q1);
                         c.s.executeUpdate(q1);
                         c.s.executeUpdate(q2);
                         c.c.commit();
@@ -182,7 +205,7 @@ public class AddCustomer extends JFrame {
                 }
             }
         });
-        btnNewButton.setBounds(100, 430, 120, 30);
+        btnNewButton.setBounds(100, 450, 120, 30);
         btnNewButton.setBackground(Color.BLACK);
         btnNewButton.setForeground(Color.WHITE);
         contentPane.add(btnNewButton);
@@ -194,7 +217,7 @@ public class AddCustomer extends JFrame {
                 setVisible(false);
             }
         });
-        btnExit.setBounds(260, 430, 120, 30);
+        btnExit.setBounds(260, 450, 120, 30);
         btnExit.setBackground(Color.BLACK);
         btnExit.setForeground(Color.WHITE);
         contentPane.add(btnExit);

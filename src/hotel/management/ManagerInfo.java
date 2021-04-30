@@ -116,7 +116,7 @@ public class ManagerInfo extends JFrame {
         l3.setBounds(786, 11, 86, 14);
         contentPane.add(l3);
 
-        JLabel l4 = new JLabel("Gmail");
+        JLabel l4 = new JLabel("Email");
         l4.setBounds(896, 11, 86, 14);
         contentPane.add(l4);
 

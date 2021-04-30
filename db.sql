@@ -36,8 +36,9 @@ name varchar(30),
 gender varchar(30), 
 address varchar(50), 
 room_number varchar(20), 
-status varchar(30), 
+no_of_days int,
 deposit varchar(30),
+check_in_date date,
 primary key (id_type, id_number),
 foreign key (room_number) references room(room_number)
 );
