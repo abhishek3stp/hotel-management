@@ -36,18 +36,6 @@ public class SearchRoom extends JFrame {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    SearchRoom frame = new SearchRoom();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     public void close() {
         this.dispose();
@@ -60,8 +48,8 @@ public class SearchRoom extends JFrame {
      */
     public SearchRoom(Reception parent) throws SQLException {
         //conn = Javaconnect.getDBConnection();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(530, 200, 700, 500);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(530, 200, 700, 600);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -100,6 +88,7 @@ public class SearchRoom extends JFrame {
         c1 = new Choice();
         c1.add("Single Bed");
         c1.add("Double Bed");
+        c1.add("Any");
         c1.setBounds(153, 70, 120, 20);
         contentPane.add(c1);
 
@@ -108,6 +97,10 @@ public class SearchRoom extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String SQL = "select * from Room where bed_type = '" + c1.getSelectedItem() + "'";
                 String SQL2 = "select * from Room where availability = 'Available' AND bed_type = '" + c1.getSelectedItem() + "'";
+                if(c1.getSelectedItem().equals("Any")){
+                    SQL = "select * from Room";
+                    SQL2 = "select * from Room where availability = 'Available'";
+                }
                 try {
                     conn c = new conn();
                     rs = c.s.executeQuery(SQL);
@@ -123,7 +116,7 @@ public class SearchRoom extends JFrame {
                 }
             }
         });
-        btnSearch.setBounds(200, 400, 120, 30);
+        btnSearch.setBounds(200, 500, 120, 30);
         btnSearch.setBackground(Color.BLACK);
         btnSearch.setForeground(Color.WHITE);
         contentPane.add(btnSearch);
@@ -135,14 +128,15 @@ public class SearchRoom extends JFrame {
                 dispose();
             }
         });
-        btnExit.setBounds(380, 400, 120, 30);
-        btnExit.setBackground(Color.BLACK);
-        btnExit.setForeground(Color.WHITE);
-        contentPane.add(btnExit);
 
         table = new JTable();
         table.setBounds(0, 187, 700, 300);
         contentPane.add(table);
+
+        btnExit.setBounds(380, 500, 120, 30);
+        btnExit.setBackground(Color.BLACK);
+        btnExit.setForeground(Color.WHITE);
+        contentPane.add(btnExit);
 
         JLabel lblCleanStatus = new JLabel("Clean Status");
         lblCleanStatus.setBounds(306, 162, 96, 14);

@@ -138,37 +138,47 @@ public class AddCustomer extends JFrame {
         JButton btnNewButton = new JButton("Add");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                conn c = new conn();
-                String radio = null;
 
-                if (r_male.isSelected()) {
-                    radio = "Male";
-                } else if (r_female.isSelected()) {
-                    radio = "Female";
+                try{
+                    conn c = new conn();
+                    c.c.setAutoCommit(false);
+                    String radio = null;
+
+                    if (r_male.isSelected()) {
+                        radio = "male";
+                    } else if (r_female.isSelected()) {
+                        radio = "female";
+                    }
+
+                    String s_room = c1.getSelectedItem();
+
+                    try {
+
+                        String s_id_type = (String) c_id_type.getSelectedItem();
+                        String s_id_number = t_id_number.getText();
+                        String s_name = t_name.getText();
+                        String s_gender = radio;
+                        String s_address = t_address.getText();
+                        String s_check_in_stat = t_check_in_stat.getText();
+                        String s_deposite = t_deposite.getText();
+
+                        String q1 = "insert into customer values('" + s_id_type + "','" + s_id_number + "','" + s_name + "','" + s_gender + "','" + s_address + "','" + s_room + "','" + s_check_in_stat + "','" + s_deposite + "')";
+                        String q2 = "update room set availability = 'Occupied' where room_number = " + s_room;
+                        c.s.executeUpdate(q1);
+                        c.s.executeUpdate(q2);
+                        c.c.commit();
+
+                        JOptionPane.showMessageDialog(null, "Data Inserted Successfully");
+                    } catch (SQLException e1) {
+                        System.out.println(e1.getMessage());
+                        c.c.rollback();
+                    } catch (NumberFormatException s) {
+                        JOptionPane.showMessageDialog(null, "Please Enter an valid number");
+                    }
+                    c.c.setAutoCommit(true);
                 }
-
-                String s_room = c1.getSelectedItem();
-
-                try {
-
-                    String s_id_type = (String) c_id_type.getSelectedItem();
-                    String s_id_number = t_id_number.getText();
-                    String s_name = t_name.getText();
-                    String s_gender = radio;
-                    String s_address = t_address.getText();
-                    String s_check_in_stat = t_check_in_stat.getText();
-                    String s_deposite = t_deposite.getText();
-
-                    String q1 = "insert into customer values('" + s_id_type + "','" + s_id_number + "','" + s_name + "','" + s_gender + "','" + s_address + "','" + s_room + "','" + s_check_in_stat + "','" + s_deposite + "')";
-                    String q2 = "update room set availability = 'Occupied' where room_number = " + s_room;
-                    c.s.executeUpdate(q1);
-                    c.s.executeUpdate(q2);
-
-                    JOptionPane.showMessageDialog(null, "Data Inserted Successfully");
-                } catch (SQLException e1) {
-                    System.out.println(e1.getMessage());
-                } catch (NumberFormatException s) {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid Number");
+                catch(Exception e2){
+                    JOptionPane.showMessageDialog(null, e2.getMessage());
                 }
             }
         });
